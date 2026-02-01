@@ -1,10 +1,14 @@
 // =============================================================================
-// MOCK DATA
+// MOCK DATA FOR TESTING
 // =============================================================================
 
 import type { ArtworkPreview, ImageStyle, ImageAspectRatio } from '@/types';
 
-const unsplashImages = [
+// =============================================================================
+// CONSTANTS
+// =============================================================================
+
+const UNSPLASH_IMAGES: string[] = [
   'https://images.unsplash.com/photo-1546069901-ba9599a7e63c',
   'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38',
   'https://images.unsplash.com/photo-1565958011703-44f9829ba187',
@@ -27,70 +31,130 @@ const unsplashImages = [
   'https://images.unsplash.com/photo-1488477181946-6428a0291777',
 ];
 
-const categories = [
+const CATEGORIES: string[] = [
   'fresh-produce',
   'beverages',
   'desserts-sweets',
   'breakfast-brunch',
   'main-courses',
+  'bread-bakery',
+  'ingredients-spices',
+  'fast-food-street',
+  'table-settings',
+  'healthy-diet',
 ];
 
-const subCategories: Record<string, string[]> = {
-  'fresh-produce': ['tropical-fruits', 'leafy-greens'],
-  'beverages': ['artisan-coffee', 'fresh-juices'],
-  'desserts-sweets': ['layered-cakes', 'ice-cream'],
-  'breakfast-brunch': ['pancakes', 'avocado-toast'],
-  'main-courses': ['steaks', 'pasta'],
+const SUB_CATEGORIES: Record<string, string[]> = {
+  'fresh-produce': ['tropical-fruits', 'citrus-collection', 'berries-cherries', 'leafy-greens'],
+  'beverages': ['artisan-coffee', 'premium-teas', 'fresh-juices', 'mocktails'],
+  'desserts-sweets': ['layered-cakes', 'french-pastries', 'artisan-chocolates', 'ice-cream-gelato'],
+  'breakfast-brunch': ['pancake-stacks', 'eggs-omelets', 'avocado-toast', 'french-toast'],
+  'main-courses': ['steaks-grills', 'authentic-curries', 'pasta-perfection', 'seafood-showcase'],
+  'bread-bakery': ['artisan-sourdough', 'flaky-croissants', 'french-baguettes', 'sweet-breads'],
+  'ingredients-spices': ['spice-collections', 'fresh-herbs', 'oils-vinegars', 'dairy-products'],
+  'fast-food-street': ['gourmet-burgers', 'artisan-pizzas', 'loaded-tacos', 'crispy-fried-chicken'],
+  'table-settings': ['empty-plates', 'cutlery-arrangements', 'centerpieces', 'mood-ambiance'],
+  'healthy-diet': ['vibrant-salads', 'vegan-bowls', 'superfood-highlights', 'meal-prep'],
 };
 
-const styles: ImageStyle[] = ['bright', 'moody', 'minimal', 'rustic', 'modern', 'natural'];
-const aspectRatios: ImageAspectRatio[] = ['1:1', '4:3', '3:4', '16:9'];
+const STYLES: ImageStyle[] = [
+  'bright',
+  'moody',
+  'minimal',
+  'rustic',
+  'modern',
+  'vintage',
+  'dramatic',
+  'natural',
+  'studio',
+  'lifestyle',
+];
 
-const titles = [
+const ASPECT_RATIOS: ImageAspectRatio[] = ['1:1', '4:3', '3:4', '16:9', '3:2'];
+
+const TITLES: string[] = [
   'Fresh Garden Salad',
   'Artisan Coffee Brew',
   'Chocolate Layer Cake',
   'Avocado Toast Delight',
   'Grilled Ribeye Steak',
   'Homemade Sourdough',
-  'Spice Collection',
-  'Gourmet Burger',
+  'Spice Market Collection',
+  'Gourmet Burger Stack',
   'Elegant Table Setting',
-  'Buddha Bowl',
+  'Buddha Bowl Creation',
   'Tropical Fruit Platter',
-  'Pancake Stack',
-  'Seafood Pasta',
-  'French Croissant',
-  'Smoothie Bowl',
-  'Margherita Pizza',
-  'Farm Vegetables',
-  'Ice Cream Sundae',
-  'Herb Garden',
-  'Bread Basket',
+  'Morning Pancake Stack',
+  'Seafood Pasta Dish',
+  'French Croissant Fresh',
+  'Colorful Smoothie Bowl',
+  'Classic Margherita Pizza',
+  'Farm Fresh Vegetables',
+  'Decadent Ice Cream Sundae',
+  'Aromatic Herb Garden',
+  'Rustic Bread Basket',
+  'Sushi Platter Deluxe',
+  'Berry Cheesecake Slice',
+  'Grilled Salmon Fillet',
+  'Vietnamese Pho Bowl',
 ];
 
-export function generateMockArtworks(count: number = 20): ArtworkPreview[] {
-  return Array.from({ length: count }, (_, index) => {
-    const categorySlug = categories[index % categories.length];
-    const subs = subCategories[categorySlug] || ['general'];
-    const subCategorySlug = subs[index % subs.length];
-    const imageUrl = unsplashImages[index % unsplashImages.length];
+// =============================================================================
+// HELPER FUNCTIONS
+// =============================================================================
 
-    return {
+function getArrayItem<T>(arr: T[], index: number): T {
+  const safeIndex = index % arr.length;
+  const item = arr[safeIndex];
+  if (item === undefined) {
+    throw new Error(`Array item at index ${safeIndex} is undefined`);
+  }
+  return item;
+}
+
+function getSubCategories(categorySlug: string): string[] {
+  return SUB_CATEGORIES[categorySlug] ?? ['general'];
+}
+
+// =============================================================================
+// GENERATE MOCK ARTWORKS
+// =============================================================================
+
+export function generateMockArtworks(count: number = 20): ArtworkPreview[] {
+  const artworks: ArtworkPreview[] = [];
+
+  for (let index = 0; index < count; index++) {
+    const categorySlug = getArrayItem(CATEGORIES, index);
+    const subCategoryList = getSubCategories(categorySlug);
+    const subCategorySlug = getArrayItem(subCategoryList, index);
+    const imageUrl = getArrayItem(UNSPLASH_IMAGES, index);
+    const title = getArrayItem(TITLES, index);
+    const style = getArrayItem(STYLES, index);
+    const aspectRatio = getArrayItem(ASPECT_RATIOS, index);
+
+    const artwork: ArtworkPreview = {
       id: `artwork_${index + 1}`,
       slug: `artwork-${index + 1}`,
       thumbnailSrc: `${imageUrl}?w=400&h=300&fit=crop&auto=format`,
       previewSrc: `${imageUrl}?w=800&h=600&fit=crop&auto=format`,
       blurDataURL: '',
-      title: titles[index % titles.length],
-      categorySlug,
-      subCategorySlug,
-      aspectRatio: aspectRatios[index % aspectRatios.length],
-      style: styles[index % styles.length],
+      title: title,
+      categorySlug: categorySlug,
+      subCategorySlug: subCategorySlug,
+      aspectRatio: aspectRatio,
+      style: style,
       isFeatured: index % 5 === 0,
       isNew: index % 7 === 0,
     };
-  });
+
+    artworks.push(artwork);
+  }
+
+  return artworks;
 }
 
-export const mockArtworks = generateMockArtworks(24);
+// =============================================================================
+// EXPORT DEFAULT MOCK DATA
+// =============================================================================
+
+export const mockArtworks: ArtworkPreview[] = generateMockArtworks(24);

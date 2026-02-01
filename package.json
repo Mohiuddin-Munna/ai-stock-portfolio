@@ -1,20 +1,15 @@
 {
   "name": "ai-culinary-portfolio",
   "version": "1.0.0",
-  "description": "AI-Generated Culinary Artworks Portfolio",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "type-check": "tsc --noEmit",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "lint": "next lint"
   },
   "dependencies": {
-    "next": "^15.1.0",
+    "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "framer-motion": "^11.15.0",
@@ -33,11 +28,6 @@
     "postcss": "^8.4.49",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
-    "eslint-config-next": "^15.1.0",
-    "prettier": "^3.4.2",
-    "prettier-plugin-tailwindcss": "^0.6.9"
-  },
-  "engines": {
-    "node": ">=18.17.0"
+    "eslint-config-next": "15.1.0"
   }
 }

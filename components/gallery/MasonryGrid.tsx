@@ -4,7 +4,7 @@
 // MASONRY GRID COMPONENT
 // =============================================================================
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ImageCard } from './ImageCard';

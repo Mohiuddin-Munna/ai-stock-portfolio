@@ -41,7 +41,7 @@ const SecurityContext = createContext<SecurityContextType | undefined>(undefined
 
 export function SecurityProvider({ children, enabled = true }: SecurityProviderProps) {
   const [isSecurityEnabled, setIsSecurityEnabled] = useState(enabled);
-  const [isDevToolsOpen, setIsDevToolsOpen] = useState(false);
+  const [isDevToolsOpen, _setIsDevToolsOpen] = useState(false);
   const [securityViolations, setSecurityViolations] = useState(0);
 
   // Context Menu Blocker

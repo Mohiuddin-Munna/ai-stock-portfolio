@@ -10,7 +10,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Clock, TrendingUp, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { Category, SearchSuggestion } from '@/types';
+import type { SearchSuggestion } from '@/types';
 
 // =============================================================================
 // TYPES

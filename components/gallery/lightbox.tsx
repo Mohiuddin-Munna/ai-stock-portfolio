@@ -47,9 +47,8 @@ export function Lightbox({
   const { isSecurityEnabled } = useSecurity();
   const [showInfo, setShowInfo] = useState(false);
   const [zoom, setZoom] = useState(1);
-  const [direction, setDirection] = useState(0);
+  const [_direction, setDirection] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
-
   const currentArtwork = artworks[currentIndex];
   const hasPrev = currentIndex > 0;
   const hasNext = currentIndex < artworks.length - 1;
